@@ -1,7 +1,29 @@
 provider "aws" {
   region = "us-east-1"
 }
+##############################
+# 2. Bucket S3 para el ZIP de Lambda
+##############################
+resource "aws_s3_bucket" "lambda_bucket" {
+  bucket        = "my-lambda-bucket-Poc"  #
+  force_destroy = true
+}
 
+resource "aws_s3_bucket_policy" "lambda_bucket_policy" {
+  bucket = aws_s3_bucket.lambda_bucket.id
+  policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = [
+      {
+        Sid       = "AllowLambdaGetObject",
+        Effect    = "Allow",
+        Principal = "*",
+        Action    = "s3:GetObject",
+        Resource  = "${aws_s3_bucket.lambda_bucket.arn}/*"
+      }
+    ]
+  })
+}
 # DynamoDB
 resource "aws_dynamodb_table" "incidencias" {
   name           = "IncidenciasMantenimiento"
@@ -64,7 +86,7 @@ resource "aws_lambda_function" "iot_lambda" {
   handler       = "com.example.iot.TemperatureAlertHandler::handleRequest"
   runtime       = "java17"
 
-  s3_bucket = var.lambda_s3_bucket
+  s3_bucket = aws_s3_bucket.lambda_bucket.id
   s3_key    = var.lambda_s3_key
 
   environment {
