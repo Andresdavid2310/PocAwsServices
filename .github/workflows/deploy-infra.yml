@@ -9,7 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    environment: AWS
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
