@@ -9,21 +9,21 @@ resource "aws_s3_bucket" "lambda_bucket_poc" {
   force_destroy = true
 }
 
-resource "aws_s3_bucket_policy" "lambda_bucket_policy" {
-  bucket = aws_s3_bucket.lambda_bucket_poc.id
-  policy = jsonencode({
-    Version   = "2012-10-17",
-    Statement = [
-      {
-        Sid       = "AllowLambdaGetObject",
-        Effect    = "Allow",
-        Principal = "*",
-        Action    = "s3:GetObject",
-        Resource  = "${aws_s3_bucket.lambda_bucket_poc.arn}/*"
-      }
-    ]
-  })
-}
+# resource "aws_s3_bucket_policy" "lambda_bucket_policy" {
+#   bucket = aws_s3_bucket.lambda_bucket_poc.id
+#   policy = jsonencode({
+#     Version   = "2012-10-17",
+#     Statement = [
+#       {
+#         Sid       = "AllowLambdaGetObject",
+#         Effect    = "Allow",
+#         Principal = "*",
+#         Action    = "s3:GetObject",
+#         Resource  = "${aws_s3_bucket.lambda_bucket_poc.arn}/*"
+#       }
+#     ]
+#   })
+# }
 
 # Opción A: Desactivar bloqueo de políticas públicas para poder aplicar la política
 resource "aws_s3_bucket_public_access_block" "lambda_bucket_access" {
