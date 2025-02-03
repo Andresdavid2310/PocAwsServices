@@ -86,7 +86,7 @@ resource "aws_lambda_function" "iot_lambda" {
   handler       = "com.example.iot.TemperatureAlertHandler::handleRequest"
   runtime       = "java17"
 
-  s3_bucket = aws_s3_bucket.lambda_bucket.id
+  s3_bucket = aws_s3_bucket.lambda_bucket_poc.id
   s3_key    = var.lambda_s3_key
 
   environment {
