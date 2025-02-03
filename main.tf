@@ -24,6 +24,16 @@ resource "aws_s3_bucket_policy" "lambda_bucket_policy" {
     ]
   })
 }
+
+# Opción A: Desactivar bloqueo de políticas públicas para poder aplicar la política
+resource "aws_s3_bucket_public_access_block" "lambda_bucket_access" {
+  bucket                  = aws_s3_bucket.lambda_bucket_poc.id
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
 # DynamoDB
 resource "aws_dynamodb_table" "incidencias" {
   name           = "IncidenciasMantenimiento"
