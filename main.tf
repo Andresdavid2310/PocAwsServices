@@ -93,7 +93,7 @@ resource "aws_iam_role_policy_attachment" "lambda_dynamodb_attach" {
 resource "aws_lambda_function" "iot_lambda" {
   function_name = "TemperatureAlertHandler"
   role          = aws_iam_role.lambda_role.arn
-  handler       = "com.example.iot.TemperatureAlertHandler::handleRequest"
+  handler       = "com.iotPoc.TemperatureAlertHandler::handleRequest"
   runtime       = "java17"
 
   s3_bucket = aws_s3_bucket.lambda_bucket_poc.id
@@ -109,7 +109,7 @@ resource "aws_lambda_function" "iot_lambda" {
 # Regla de IoT Core
 resource "aws_iot_topic_rule" "iot_rule" {
   name        = "HighTemperatureRule"
-  sql         = "SELECT * FROM 'dispositivos/temperatura' WHERE temperatura > 49"
+  sql         = "SELECT * FROM 'data' WHERE temperatura > 49"
   sql_version = "2016-03-23"
   enabled     = true
 
