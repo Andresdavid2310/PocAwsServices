@@ -4,13 +4,13 @@ provider "aws" {
 ##############################
 # 2. Bucket S3 para el ZIP de Lambda
 ##############################
-resource "aws_s3_bucket" "lambda_bucket" {
-  bucket        = "my-lambda-bucket-Poc"  #
+resource "aws_s3_bucket" "lambda_bucket_poc" {
+  bucket        = "my-lambda-report-bucket-poc"
   force_destroy = true
 }
 
 resource "aws_s3_bucket_policy" "lambda_bucket_policy" {
-  bucket = aws_s3_bucket.lambda_bucket.id
+  bucket = aws_s3_bucket.lambda_bucket_poc.id
   policy = jsonencode({
     Version   = "2012-10-17",
     Statement = [
@@ -19,7 +19,7 @@ resource "aws_s3_bucket_policy" "lambda_bucket_policy" {
         Effect    = "Allow",
         Principal = "*",
         Action    = "s3:GetObject",
-        Resource  = "${aws_s3_bucket.lambda_bucket.arn}/*"
+        Resource  = "${aws_s3_bucket.lambda_bucket_poc.arn}/*"
       }
     ]
   })
