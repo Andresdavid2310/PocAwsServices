@@ -30,13 +30,6 @@ resource "aws_dynamodb_table" "incidencias" {
     name = "incidenciaId"
     type = "S"
   }
-  global_secondary_index {
-    name               = "DispositivoIdIndex"
-    hash_key           = "dispositivoId"
-    projection_type    = "ALL"
-    write_capacity     = 1
-    read_capacity      = 1
-  }
 }
 
 ##############################
