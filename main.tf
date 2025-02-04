@@ -78,6 +78,15 @@ resource "aws_iam_policy" "dynamodb_policy" {
         Effect = "Allow",
         Action = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
         Resource = "*"
+      },{
+        Effect = "Allow",
+        Action = ["lambda:UpdateFunctionCode"],
+        Resource = aws_lambda_function.iot_lambda.arn
+      },
+      {
+        Effect = "Allow",
+        Action = ["s3:GetObject"],
+        Resource = "${aws_s3_bucket.lambda_bucket_poc.arn}/*"
       }
     ]
   })
