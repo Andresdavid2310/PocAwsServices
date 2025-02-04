@@ -71,7 +71,7 @@ resource "aws_iam_policy" "dynamodb_policy" {
     Statement = [
       {
         Effect = "Allow",
-        Action = ["dynamodb:PutItem"],
+        Action = ["dynamodb:PutItem", "dynamodb:DescribeTable", "dynamodb:GetItem", "dynamodb:UpdateItem"],
         Resource = aws_dynamodb_table.incidencias.arn
       },
       {
