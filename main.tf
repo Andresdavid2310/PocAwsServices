@@ -109,7 +109,7 @@ resource "aws_lambda_function" "iot_lambda" {
 # Regla de IoT Core
 resource "aws_iot_topic_rule" "iot_rule" {
   name        = "HighTemperatureRule"
-  sql         = "SELECT * FROM 'data' WHERE temperatura > 49"
+  sql         = "SELECT * FROM 'data' WHERE Temperatura > 49"
   sql_version = "2016-03-23"
   enabled     = true
 
